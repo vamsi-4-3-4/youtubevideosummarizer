@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reusable UI Template</title>
+
+<style>
+  :root {
+ 
+
+
+
+  --hamburger-font-size: 22px;
+  --hamburger-light-color: blue;
+  --hamburger-dark-color: white;
+
+  /* other existing variables... */
+
+
+   /* Theme Colors */
+    --primary-color: maroon;
+    --primary-dark: red;
+    --success-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --text-muted: #888;
+
+    /* Light Theme */
+    --light-text-color: #1e1e1e;
+    --light-bg-color: #ffffff;
+    --light-header-bg: #f9f9f9;
+    --light-button-bg: #4e8cff;
+    --light-button-text: #ffffff;
+    --light-button-active-color: #2ecc71;
+    --light-button-active-border-color: rgba(46, 204, 113, 0.4);
+    --light-button-active-bg-color: #2ecc71;
+    --light-button-active-text-color: #ffffff;
+
+    /* Dark Theme */
+    --dark-text-color: #ffffff;
+    --dark-bg-color: #1e1e1e;
+    --dark-header-bg: red;
+    --dark-button-bg: maroon;
+    --dark-button-text: #ffffff;
+    --dark-button-active-color:white;
+    --dark-button-active-border-color: crimson;
+    --dark-button-active-bg-color: maroon;
+    --dark-button-active-text-color: #ffffff;
+
+    /* Sizing & Spacing */
+    --border-radius: 2px;
+    --full-width: 100%;
+    --header-padding: 10px 20px;
+    --form-padding: 10px;
+    --input-height: 40px;
+    --input-margin: 15px 0;
+    --container-margin: 20px auto;
+    --container-padding: 0 15px;
+
+    /* Animation */
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition-fast: 0.3s ease;
+    --transition-slow: 0.8s ease;
+    --section-border-animation: 0.6s ease-in-out;
+
+    /* Font Sizes */
+    --font-size-desktop: 16px;
+    --font-size-mobile: 14px;
+
+    /* Mobile Image Sizes */
+    --mobile-img-width: 100%;
+    --mobile-img-height: auto;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-size-desktop);
+    transition: background-color var(--transition-slow), color var(--transition-slow);
+  }
+
+  body.light-mode {
+    background-color: var(--light-bg-color);
+    color: var(--light-text-color);
+  }
+
+  body.dark-mode {
+    background-color: var(--dark-bg-color);
+    color: var(--dark-text-color);
+  }
+
+ 
+
+
+    #app-header {
+      padding: var(--header-padding);
+      background-color: var(--light-header-bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      transition: background-color var(--transition-slow);
+      position: relative;
+      z-index: 1;
+    }
+
+
+
+
+    .app-logo-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+  body.dark-mode #app-header {
+    background-color: var(--dark-header-bg);
+  }
+
+  .section-button,
+  .theme-toggle-button {
+    background-color: var(--light-button-bg);
+    color: var(--light-button-text);
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  body.dark-mode .section-button,
+  body.dark-mode .theme-toggle-button {
+    background-color: var(--dark-button-bg);
+    color: var(--dark-button-text);
+  }
+
+  .section-button.active {
+    background-color: var(--light-button-active-bg-color);
+    color: var(--light-button-active-text-color);
+    box-shadow: 0 0 0 3px var(--light-button-active-border-color);
+  }
+
+  body.dark-mode .section-button.active {
+    background-color: var(--dark-button-active-bg-color);
+    color: var(--dark-button-active-text-color);
+    box-shadow: 0 0 0 3px var(--dark-button-active-border-color);
+  }
+
+  .section-container {
+    margin: var(--container-margin);
+    padding: var(--container-padding);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    animation: fadeBorder var(--section-border-animation);
+  }
+
+  @keyframes fadeBorder {
+    0% {
+      transform: scale(0.98);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .section-content {
+    display: none;
+    background-color: var(--light-bg-color);
+    color: inherit;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    animation: fadeIn 0.5s ease forwards;
+  }
+
+  .section-content.active {
+    display: block;
+  }
+
+  body.dark-mode .section-content {
+    background-color: var(--dark-bg-color);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  input[type="url"], input[type="text"], select {
+    width: var(--full-width);
+    height: var(--input-height);
+    padding: var(--form-padding);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: var(--input-margin);
+    box-sizing: border-box;
+  }
+
+  button[type="submit"] {
+    background-color: var(--success-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition-fast);
+  }
+
+  button[type="submit"]:hover {
+    background-color: #27ae60;
+  }
+
+  /* Section IDs with borders */
+  #section-summarize,
+  #section-summary,
+  #section-title,
+  #section-transcript,
+  #section-thumbnail {
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    animation: fadeBorder var(--section-border-animation);
+  }
+
+  #summary-output {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px dashed #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    white-space: pre-wrap;
+  }
+
+  body.dark-mode #summary-output {
+    background-color: #2c2c2c;
+    color: var(--dark-text-color);
+    border-color: #444;
+  }
+
+  body.dark-mode #section-summarize input,
+  body.dark-mode #section-summarize select,
+  body.dark-mode #section-summarize button {
+    background-color: #333;
+    color: var(--dark-text-color);
+    border: 1px solid #555;
+  }
+
+  
+.hamburger {
+  display: none;
+  font-size: var(--hamburger-font-size);
+  background: none;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: var(--hamburger-light-color);
+}
+
+body.dark-mode .hamburger {
+  color: var(--hamburger-dark-color);
+}
+
+
+
+
+  @media (max-width: 768px) {
+    body {
+      font-size: var(--font-size-mobile);
+    }
+
+    .hamburger {
+      display: block;
+    }
+
+    .app-menu {
+      flex-direction: column;
+      width: var(--full-width);
+      margin-top: 10px;
+      background-color: var(--light-header-bg);
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+
+
+
+
+
+.app-menu button{
+margin:1%;
+}
+
+    .app-menu button {
+      width: 95%;
+    }
+
+    body.dark-mode .app-menu {
+      background-color: var(--dark-header-bg);
+    }
+
+    .app-menu.collapsed {
+      display: none;
+    }
+
+    img {
+      width: var(--mobile-img-width);
+      height: var(--mobile-img-height);
+    }
+  }
+
+  #sumimg img {
+    width: 200px;
+    height: 200px;
+  }
+
+
+.app-logo {
+      height: 40px;
+      width: 40px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+    }
+
+    .app-title {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+
+
+
+/* General container control */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Ensure all section content stays within its parent */
+.section-container,
+.section-content,
+#summary-output,
+#section-summarize,
+#section-summary,
+#section-title,
+#section-transcript,
+#section-thumbnail {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Prevent inline flex children from overflowing */
+.app-logo-name {
+  flex-shrink: 1;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+/* Fix app-title from overflowing */
+.app-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* For mobile and smaller screens, ensure all fits within viewport */
+@media (max-width: 768px) {
+  .section-container,
+  .section-content,
+  #summary-output,
+  #section-summarize,
+  #section-summary,
+  #section-title,
+  #section-transcript,
+  #section-thumbnail {
+    padding: 10px;
+  }
+
+  .app-logo-name {
+    max-width: 100%;
+    flex-wrap: nowrap;
+  }
+
+  .app-title {
+    font-size: 16px;
+  }
+}
+
+
+
+</style>
+
+
+
+
+<!--
+  
+-->
+
+
+
+</head>
+
+
+
+</head>
+<body class="dark-mode">
+
+<header id="app-header">
+  <div class="app-logo-name">
+    <div class="app-logo"></div>
+    <div class="app-title">Youtube Video Summariser</div>
+  </div>
+  <button class="hamburger" id="hamburgerBtn">&#9776;</button>
+  <div class="app-menu" id="menuContainer">
+    <button class="section-button active" data-target="section-summarize">Summarize</button>
+    <button class="section-button" data-target="section-recent">Recent</button>
+    <button class="section-button" data-target="section-browse">Browse</button>
+    <button id="themeToggleBtn" class="theme-toggle-button">LIGHT THEME</button>
+  </div>
+</header>
+
+<div class="section-container">
+  
+  <!-- section-summarize div starts here -->
+  
+
+
+  <!-- section-recent div starts here -->
+  <div id="section-recent" class="section-content">
+    <h3>Recent Summaries</h3>
+  </div>
+  <!-- section-recent div ends here -->
+
+  
+
+
+
+<div id="section-browse" class="section-content">
+  
+  <h3>Browse</h3>
+  <a href="https://www.youtube.com" target="_blank">CLICK TO OPEN YOUTUBE </a>
+  </div>
+  <!-- section-browse div ends here -->
+
+</div>
+
+
+
+
+<div id="section-summarize" class="section-content active">
+  <h2>Summarize</h2>
+  <p>Paste the YouTube video URL to get a summary.</p>
+  <form id="summary-form">
+    <label for="video-url">Video URL:</label>
+    <input type="url" id="video-url" placeholder="e.g., https://www.youtube.com/watch?v=xyz" required>
+    
+    <label for="lang">Select Language:</label>
+    <select id="lang">
+      <option value="en">English</option>
+      <option value="te">Telugu</option>
+      <option value="hi">Hindi</option>
+      <option value="ta">Tamil</option>
+      <option value="kn">Kannada</option>
+      <option value="ml">Malayalam</option>
+    </select>
+
+    <button type="submit">Get Summary</button>
+  </form>
+
+  <div id="summary-output">
+    No summary generated yet.
+  </div>
+</div>
+
+
+
+
+<script>
+  document.getElementById('summary-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const videoUrl = document.getElementById('video-url').value;
+    const lang = document.getElementById('lang').value;
+    const summaryOutput = document.getElementById('summary-output');
+    summaryOutput.innerHTML = 'Processing...';
+
+    fetch('/summarize/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+      body: `video_url=${encodeURIComponent(videoUrl)}&lang=${encodeURIComponent(lang)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        summaryOutput.innerHTML = '<p style="color:red;">Error: ' + data.error + '</p>';
+      } else {
+        summaryOutput.innerHTML = `
+          <p><strong>Title:</strong> ${data.title}</p>
+          <p><strong>Thumbnail:</strong><br><img src="${data.thumbnail_url}" width="300" /></p>
+          <p><strong>Description:</strong><br>${data.description}</p>
+          <p><strong>Transcrip<br/>${data.transcript}</p>
+          <p><strong>Summary in Selected Language:</strong><br>${data.summary.replace(/\n/g, '<br>')}</p>
+          <p><a href="https://www.youtube.com/watch?v=${data.video_id}" target="_blank">Watch on YouTube</a></p>
+        `;
+      }
+    })
+    .catch(error => {
+      summaryOutput.innerHTML = '<p style="color:red;">Error: ' + error + '</p>';
+    });
+  });
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
+
+
+
+
+<!-- OLD WORKING CODE-->
+
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sectionButtons = document.querySelectorAll('.section-button');
+    const sections = document.querySelectorAll('.section-content');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const body = document.body;
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const menuContainer = document.getElementById('menuContainer');
+
+    const hideAllSections = () => {
+      sections.forEach(section => section.classList.remove('active'));
+      sectionButtons.forEach(button => button.classList.remove('active'));
+    };
+
+    sectionButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        hideAllSections();
+        const target = button.dataset.target;
+        document.getElementById(target).classList.add('active');
+        button.classList.add('active');
+
+        if (window.innerWidth < 768) {
+          menuContainer.classList.add('collapsed');
+        }
+      });
+    });
+
+    themeToggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      body.classList.toggle('light-mode');
+      themeToggleBtn.textContent = body.classList.contains('dark-mode') ? 'LIGHT THEME' : 'DARK THEME';
+    });
+
+    hamburgerBtn.addEventListener('click', () => {
+      menuContainer.classList.toggle('collapsed');
+    });
+
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        menuContainer.classList.remove('collapsed');
+      } else {
+        menuContainer.classList.add('collapsed');
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  });
+</script>
+
+</body>
+</html>

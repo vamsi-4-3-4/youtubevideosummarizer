@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reusable UI Template</title>
+  <style>
+    :root {
+      --primary-color: #4e8cff;
+      --primary-dark: #3a6edc;
+
+      /* Light Theme Colors */
+      --light-text-color: #1e1e1e;
+      --light-bg-color: #ffffff;
+      --light-header-bg: #f9f9f9;
+      --light-button-bg: #4e8cff;
+      --light-button-text: #ffffff;
+
+      /* Dark Theme Colors */
+      --dark-text-color: #ffffff;
+      --dark-bg-color: #1e1e1e;
+      --dark-header-bg: #2a2a2a;
+      --dark-button-bg: #3a6edc;
+      --dark-button-text: #ffffff;
+
+      --success-color: #2ecc71;
+      --danger-color: #e74c3c;
+      --text-muted: #888;
+
+      --border-radius: 8px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition-fast: 0.3s ease;
+      --transition-slow: 0.8s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: background-color var(--transition-slow), color var(--transition-slow);
+    }
+
+    body.light-mode {
+      background-color: var(--light-bg-color);  /* Light section color */
+      color: var(--light-text-color);           /* Light text color */
+    }
+
+    body.dark-mode {
+      background-color: var(--dark-bg-color);   /* Dark section color */
+      color: var(--dark-text-color);            /* Dark text color */
+    }
+
+    #app-header {
+      padding: 10px 20px;
+      background-color: var(--light-header-bg);  /* Light header bg */
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      transition: background-color var(--transition-slow);
+    }
+
+    body.dark-mode #app-header {
+      background-color: var(--dark-header-bg);   /* Dark header bg */
+    }
+
+    .app-logo-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .app-logo {
+      height: 40px;
+      width: 40px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+    }
+
+    .app-title {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .app-menu {
+      display: flex;
+      gap: 10px;
+      flex-wrap: nowrap;
+    }
+
+    .section-button, .theme-toggle-button {
+      background-color: var(--light-button-bg);   /* Light button background */
+      color: var(--light-button-text);            /* Light button text */
+      border: none;
+      padding: 10px 15px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color var(--transition-fast), opacity var(--transition-slow);
+      text-align: center;
+    }
+
+    body.dark-mode .section-button,
+    body.dark-mode .theme-toggle-button {
+      background-color: var(--dark-button-bg);    /* Dark button background */
+      color: var(--dark-button-text);             /* Dark button text */
+    }
+
+    .section-button.active {
+      background-color: var(--success-color);
+      box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.4);
+    }
+
+    .section-container {
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+
+    .section-content {
+      display: none;
+      background-color: var(--light-bg-color);  /* Light section color */
+      color: inherit;
+      padding: 25px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    body.dark-mode .section-content {
+      background-color: var(--dark-bg-color);   /* Dark section color */
+    }
+
+    .section-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    input[type="url"], input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+
+    button[type="submit"] {
+      background-color: var(--success-color);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    button[type="submit"]:hover {
+      background-color: #27ae60;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      #app-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .app-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .section-button, .theme-toggle-button {
+        flex: 1 1 45%;
+      }
+    }
+  </style>
+</head>
+<body class="light-mode">
+
+<header id="app-header">
+  <div class="app-logo-name">
+    <div class="app-logo"></div>
+    <div class="app-title">Reusable App</div>
+  </div>
+  <div class="app-menu">
+    <button class="section-button" data-target="section-summarize">Summarize</button>
+    <button class="section-button" data-target="section-recent">Recent</button>
+    <button class="section-button" data-target="section-browse">Browse</button>
+    <button id="themeToggleBtn" class="theme-toggle-button">DARK THEME</button>
+  </div>
+</header>
+
+<div class="section-container">
+  <div id="section-summarize" class="section-content active">
+    <h2>Summarize</h2>
+    <p>Paste the YouTube video URL to get a summary.</p>
+    <form>
+      <label for="video-url">Video URL:</label>
+      <input type="url" id="video-url" placeholder="e.g., https://www.youtube.com/watch?v=xyz">
+      <button type="submit">Get Summary</button>
+    </form>
+    <div id="summary-output" style="margin-top: 20px; padding: 15px; border: 1px dashed #ccc; background-color: #f9f9f9; border-radius: 5px;">
+      No summary generated yet.
+    </div>
+  </div>
+
+  <div id="section-recent" class="section-content">
+    <h2>Recent Summaries</h2>
+    <ul>
+      <li>Video A Summary</li>
+      <li>Video B Summary</li>
+    </ul>
+  </div>
+
+  <div id="section-browse" class="section-content">
+    <h2>Browse</h2>
+    <form>
+      <label for="youtube-search">Search:</label>
+      <input type="text" id="youtube-search" placeholder="Search videos...">
+      <button type="submit" style="background-color: #6c757d;">Search</button>
+    </form>
+    <div id="youtube-results" style="margin-top: 20px;">No search results yet.</div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sectionButtons = document.querySelectorAll('.section-button');
+    const sections = document.querySelectorAll('.section-content');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const body = document.body;
+
+    const hideAllSections = () => {
+      sections.forEach(section => section.classList.remove('active'));
+      sectionButtons.forEach(button => button.classList.remove('active'));
+    };
+
+    sectionButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        hideAllSections();
+        const target = button.dataset.target;
+        document.getElementById(target).classList.add('active');
+        button.classList.add('active');
+      });
+    });
+
+    themeToggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      body.classList.toggle('light-mode');
+      themeToggleBtn.textContent = body.classList.contains('dark-mode') ? 'LIGHT THEME' : 'DARK THEME';
+    });
+  });
+</script>
+
+</body>
+</html>
