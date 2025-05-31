@@ -29,15 +29,21 @@ ALLOWED_HOSTS = ['*']
 
 
 
-STATIC_URL="/static/"
-STATICFILES_DIRS=[os.path.join(BASE_DIR,"static")]
+
 
 MEDIA_URLS="/media/"
 
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 #STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
+
+import os
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Optional if you have custom static folders
+
+# This is where static files will be collected during build
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build')
 
 
 
