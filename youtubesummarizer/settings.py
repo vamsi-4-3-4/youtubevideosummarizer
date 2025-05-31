@@ -25,16 +25,19 @@ SECRET_KEY = 'django-insecure-8*2d@xe96nna9-!-h(n@y30r4%jy-w!!(iw_gkwx=%h2$g3_8*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 
 STATIC_URL="/static/"
 STATICFILES_DIRS=[os.path.join(BASE_DIR,"static")]
 
-MEDIA_URL="/media/"
+MEDIA_URLS="/media/"
 
-MEDIA_ROOT=os.path.join(BASE_DIR,"images")
+MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+#STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+
 
 
 
@@ -87,13 +90,16 @@ WSGI_APPLICATION = 'youtubesummarizer.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+"""
+
+
 
 
 # Password validation
