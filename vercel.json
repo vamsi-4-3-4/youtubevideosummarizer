@@ -1,12 +1,14 @@
 {
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
   "routes": [
     {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "youtubesummarizer/wsgi.py"
+      "dest": "api/index.py"
     }
   ]
 }
